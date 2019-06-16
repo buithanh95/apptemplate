@@ -1,5 +1,5 @@
 <?php
-session_status();
+session_start();
 require_once ('db.php');
 $database = new Database();
 //echo "<pre>";
@@ -64,9 +64,10 @@ $database = new Database();
         <?php
             if (!empty($products)): ?>
             <?php foreach ($products as $product) :?>
+
         <div class="col-sm-6">
 
-            <form name="product<?php echo $product['id'];?>" action="" method="post">
+            <form name="product<?php echo $product['id'];?>" action="process.php" method="post">
                 <div class="card mb-4 shadow-sm">
                     <img class="card-img-top" alt="" style="height: 315px;display: block" src="images/<?php echo $product['product_image'];?>">
                     <div class="card-body">
@@ -75,7 +76,11 @@ $database = new Database();
                             <div class="btn-group">
                                 <div class="form-inline">
                                     <input type="text" class="form-control" name="quantity" value="1">
-                                    <label style="margin-left: 10px"><button type="button" class="btn btn-sm btn-outline-secondary">Thêm vào giỏ hàng</button></label>
+                                    <label style="margin-left: 10px">
+                                        <input type="hidden" name="action" value="add" >
+                                        <input type="hidden" name="product_id" value="<?php echo $product['id'];?>" >
+                                        <input type="submit" name="submit" class="btn btn-sm btn-outline-secondary" value="Thêm vào giỏ hàng">
+                                    </label>
 
                                 </div>
                             </div>
